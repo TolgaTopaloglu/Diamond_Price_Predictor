@@ -208,13 +208,6 @@ http://127.0.0.1:8000
 
 adresine giderek uygulamayı kullanabilirsiniz.
 
-FastAPI'nin otomatik Swagger API dokümantasyonuna:
-
-~~~text
-http://127.0.0.1:8000/docs
-~~~
-
-adresinden ulaşabilirsiniz.
 
 > **Not:** `diamond_regression.pkl` eğitilmiş **LightGBM Pipeline** modelini içerdiği için modeli yeniden eğitmenize gerek yoktur. `requirements.txt` içerisindeki bağımlılıkları kurduktan sonra uygulamayı doğrudan çalıştırabilirsiniz.
 
