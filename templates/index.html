@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiamondMlOps — Fiyat Tahmini</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0b0c10;
+            --panel: rgba(18, 20, 28, 0.72);
+            --line: rgba(232, 213, 163, 0.22);
+            --gold: #e8d5a3;
+            --gold-bright: #f4e7c3;
+            --muted: #9aa0b4;
+            --text: #f4f1ea;
+            --ok: #c8e6c0;
+            --err: #f0b4b4;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--text);
+            font-family: Outfit, system-ui, sans-serif;
+            background:
+                radial-gradient(900px 500px at 12% -10%, rgba(232, 213, 163, 0.16), transparent 55%),
+                radial-gradient(700px 420px at 100% 0%, rgba(120, 150, 220, 0.12), transparent 50%),
+                linear-gradient(165deg, #14161f 0%, var(--ink) 48%, #101218 100%);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 2 L34 10 L30 18 L26 10 Z' fill='none' stroke='%23e8d5a3' stroke-opacity='0.06'/%3E%3C/svg%3E");
+            opacity: 0.7;
+        }
+
+        .wrap {
+            position: relative;
+            z-index: 1;
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 2.4rem 1.4rem 3rem;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .gem {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--line);
+            background: linear-gradient(160deg, rgba(232,213,163,0.18), rgba(255,255,255,0.02));
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+            box-shadow: 0 0 24px rgba(232, 213, 163, 0.18);
+        }
+
+        .gem span {
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-family: "Cormorant Garamond", serif;
+            font-weight: 600;
+            font-size: 1.85rem;
+            letter-spacing: 0.04em;
+        }
+
+        .brand small {
+            display: block;
+            margin-top: 0.1rem;
+            color: var(--muted);
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+        }
+
+        .badge {
+            color: var(--gold);
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.72rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1.35fr 0.85fr;
+            gap: 1.25rem;
+            align-items: start;
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        form {
+            padding: 1.5rem 1.5rem 1.35rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .section-title {
+            grid-column: 1 / -1;
+            margin: 0.2rem 0 0;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        label {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            font-size: 0.78rem;
+            color: var(--muted);
+            letter-spacing: 0.04em;
+        }
+
+        input, select {
+            width: 100%;
+            appearance: none;
+            background: rgba(8, 10, 16, 0.7);
+            border: 1px solid rgba(232, 213, 163, 0.16);
+            color: var(--text);
+            border-radius: 12px;
+            padding: 0.72rem 0.8rem;
+            font-family: inherit;
+            font-size: 0.98rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        select {
+            background-image: linear-gradient(45deg, transparent 50%, var(--gold) 50%),
+                              linear-gradient(135deg, var(--gold) 50%, transparent 50%);
+            background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50%;
+            background-size: 5px 5px, 5px 5px;
+            background-repeat: no-repeat;
+            padding-right: 1.8rem;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: rgba(232, 213, 163, 0.55);
+            box-shadow: 0 0 0 3px rgba(232, 213, 163, 0.12);
+        }
+
+        button {
+            grid-column: 1 / -1;
+            margin-top: 0.4rem;
+            border: none;
+            border-radius: 14px;
+            padding: 0.95rem 1rem;
+            font-family: inherit;
+            font-size: 0.92rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            cursor: pointer;
+            color: #1a1408;
+            background: linear-gradient(180deg, var(--gold-bright), #cbb57a);
+            box-shadow: 0 10px 24px rgba(232, 213, 163, 0.2);
+            transition: transform 0.15s ease, filter 0.15s ease;
+        }
+
+        button:hover { transform: translateY(-1px); filter: brightness(1.05); }
+        button:disabled { opacity: 0.55; cursor: wait; transform: none; }
+
+        .quote {
+            padding: 1.6rem 1.5rem 1.5rem;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background:
+                linear-gradient(180deg, rgba(232, 213, 163, 0.08), transparent 38%),
+                var(--panel);
+        }
+
+        .quote h2 {
+            margin: 0;
+            font-family: "Cormorant Garamond", serif;
+            font-size: 1.7rem;
+            font-weight: 500;
+        }
+
+        .quote p {
+            margin: 0.55rem 0 0;
+            color: var(--muted);
+            line-height: 1.55;
+            font-weight: 300;
+        }
+
+        .price {
+            margin-top: 1.6rem;
+        }
+
+        .price .label {
+            color: var(--gold);
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .price .value {
+            margin-top: 0.35rem;
+            font-family: "Cormorant Garamond", serif;
+            font-size: 2.7rem;
+            line-height: 1.1;
+            letter-spacing: 0.02em;
+        }
+
+        .price.idle .value { color: #5d6478; font-size: 1.35rem; }
+        .price.ok .value { color: var(--gold-bright); }
+        .price.err .value { color: var(--err); font-size: 1.15rem; }
+
+        .hint {
+            margin-top: 1.4rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--line);
+            color: #7e8598;
+            font-size: 0.78rem;
+        }
+
+        @media (max-width: 860px) {
+            .layout { grid-template-columns: 1fr; }
+            form { grid-template-columns: 1fr 1fr; }
+            header { flex-direction: column; align-items: flex-start; }
+        }
+
+        @media (max-width: 520px) {
+            form { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <div class="brand">
+                <div class="gem" aria-hidden="true"><span></span></div>
+                <div>
+                    <h1>DiamondMlOps</h1>
+                    <small>Atelier pricing model</small>
+                </div>
+            </div>
+            <div class="badge">Live inference</div>
+        </header>
+
+        <div class="layout">
+            <form id="predict-form" class="card">
+                <p class="section-title">4C &amp; ölçü</p>
+                <label>Carat
+                    <input name="carat" type="number" step="0.01" min="0" value="0.70" required>
+                </label>
+                <label>Cut
+                    <select name="cut" required>
+                        <option>Fair</option>
+                        <option>Good</option>
+                        <option>Very Good</option>
+                        <option selected>Premium</option>
+                        <option>Ideal</option>
+                    </select>
+                </label>
+                <label>Color
+                    <select name="color" required>
+                        <option>D</option>
+                        <option>E</option>
+                        <option selected>G</option>
+                        <option>F</option>
+                        <option>H</option>
+                        <option>I</option>
+                        <option>J</option>
+                    </select>
+                </label>
+                <label>Clarity
+                    <select name="clarity" required>
+                        <option>I1</option>
+                        <option>SI2</option>
+                        <option selected>SI1</option>
+                        <option>VS2</option>
+                        <option>VS1</option>
+                        <option>VVS2</option>
+                        <option>VVS1</option>
+                        <option>IF</option>
+                    </select>
+                </label>
+                <label>Depth
+                    <input name="depth" type="number" step="0.01" min="0" value="61.5" required>
+                </label>
+                <label>Table
+                    <input name="table" type="number" step="0.01" min="0" value="57" required>
+                </label>
+
+                <p class="section-title">Boyut (mm)</p>
+                <label>X
+                    <input name="x" type="number" step="0.01" min="0" value="5.70" required>
+                </label>
+                <label>Y
+                    <input name="y" type="number" step="0.01" min="0" value="5.73" required>
+                </label>
+                <label>Z
+                    <input name="z" type="number" step="0.01" min="0" value="3.50" required>
+                </label>
+                <button type="submit" id="submit-btn">Tahmini hesapla</button>
+            </form>
+
+            <aside class="card quote">
+                <div>
+                    <h2>Tahmini değer</h2>
+                    <p>Model, kesim, renk, berraklık ve geometriyi birlikte değerlendirerek bir fiyat üretir.</p>
+                </div>
+                <div>
+                    <div id="result" class="price idle">
+                        <div class="label">Öngörülen fiyat</div>
+                        <div class="value" id="result-value">Hazır</div>
+                    </div>
+                    <div class="hint">Sonuç yalnızca model çıktısıdır; piyasa kotasyonu değildir.</div>
+                </div>
+            </aside>
+        </div>
+    </div>
+    <script>
+        const form = document.getElementById("predict-form");
+        const result = document.getElementById("result");
+        const resultValue = document.getElementById("result-value");
+        const submitBtn = document.getElementById("submit-btn");
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const data = Object.fromEntries(new FormData(form));
+            const payload = {
+                carat: Number(data.carat),
+                cut: data.cut,
+                color: data.color,
+                clarity: data.clarity,
+                depth: Number(data.depth),
+                table: Number(data.table),
+                x: Number(data.x),
+                y: Number(data.y),
+                z: Number(data.z),
+            };
+
+            submitBtn.disabled = true;
+            result.className = "price idle";
+            resultValue.textContent = "Hesaplanıyor…";
+
+            try {
+                const response = await fetch("/predict", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                });
+                const body = await response.json();
+                if (!response.ok) {
+                    throw new Error(body.detail ? JSON.stringify(body.detail) : response.statusText);
+                }
+                const price = Number(body.prediction);
+                result.className = "price ok";
+                resultValue.textContent = "$" + price.toLocaleString("en-US", {
+                    maximumFractionDigits: 0,
+                });
+            } catch (error) {
+                result.className = "price err";
+                resultValue.textContent = error.message;
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
