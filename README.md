@@ -1,6 +1,8 @@
+
 # 💎 DiamondMLOps: Uçtan Uca Pırlanta Fiyat Tahmin ve Analiz Motoru
 
-<img width="850" alt="DiamondMLOps Uygulama Ekranı" src="DiamondPriceWebPage.png" />
+<img width="1285" height="685" alt="DiamondPriceWebPage" src="https://github.com/user-attachments/assets/5ba892b0-72ee-4ac0-8d62-f373f7183f8e" />
+
 
 ## 📌 Proje Hakkında
 
@@ -56,7 +58,8 @@ Projede veri setine en uygun modeli bulabilmek için farklı makine öğrenmesi 
 | Ada Boost | %84.4 (0.844) |
 | SVM | %50.4 (0.504) |
 
-<img width="900" alt="Model Performans Karşılaştırması" src="DiamondPriceRegressionModel.png" />
+<img width="1112" height="536" alt="DiamondPriceRegressionModel" src="https://github.com/user-attachments/assets/dd3f7722-8f5f-451d-b85b-48c7fc5f723c" />
+
 
 Test sonuçlarına ve hiperparametre optimizasyonuna (Grid/Randomized Search) göre **LightGBM**, diğer modeller arasında en başarılı sonucu verdi. Bu nedenle sistemin canlı (live inference) tahmin modeli olarak `LightGBM Tuning` tercih edildi.
 
@@ -77,7 +80,7 @@ Modelin pırlanta fiyatını tahmin ederken hangi özelliklerden daha fazla etki
 7. **Renk: J (`cat_col__color_J`)** — `650`
 8. **Berraklık: SI2 (`cat_col__clarity_SI2`)** — `637`
 
-<img width="350" alt="Feature Importance" src="FeatureImpotanceDiamondPrice.png" />
+<img width="312" height="812" alt="FeatureImpotanceDiamondPrice" src="https://github.com/user-attachments/assets/5e2a5733-3e21-4b59-bb14-7f527805341c" />
 
 Analiz sonucunda, pırlantanın **karat ağırlığı** ve fiziksel geometrisini belirleyen **boyutsal ölçülerin (depth, x, y, z)** fiyat üzerinde en belirleyici etmenler olduğu kanıtlanmıştır.
 
