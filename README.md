@@ -145,9 +145,6 @@ Diamond_Price_Predictor/
 ├── requirements.txt
 │   # Proje bağımlılıkları
 │
-├── .gitignore
-│   # Git tarafından yok sayılacak dosyalar
-│
 └── README.md
     # Proje dokümantasyonu
 ~~~
