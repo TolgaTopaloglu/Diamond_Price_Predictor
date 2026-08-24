@@ -143,10 +143,8 @@ Diamond_Price_Predictor/
 │   # Eğitilmiş LightGBM Pipeline modeli
 │
 ├── requirements.txt
-│   # Proje bağımlılıkları
-│
-└── README.md
-    # Proje dokümantasyonu
+    # Proje bağımlılıkları
+
 ~~~
 
 ---
