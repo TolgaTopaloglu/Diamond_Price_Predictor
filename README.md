@@ -1,49 +1,51 @@
-
-# 💎 DiamondMLOps: Uçtan Uca Pırlanta Fiyat Tahmin ve Analiz Motoru
+# 💎 Diamond Price Predictor
 
 <img width="1285" height="685" alt="DiamondPriceWebPage" src="https://github.com/user-attachments/assets/5ba892b0-72ee-4ac0-8d62-f373f7183f8e" />
 
-
 ## 📌 Proje Hakkında
 
-**DiamondMLOps**, pırlantaların kesim, renk, berraklık ve geometri özelliklerini makine öğrenmesi kullanarak analiz eden ve tahmini piyasa değerini hesaplayan uçtan uca bir web uygulamasıdır.
+**Diamond Price Predictor**, pırlantaların kesim, renk, berraklık ve geometrik özelliklerini makine öğrenmesi kullanarak analiz eden ve tahmini piyasa değerini hesaplayan uçtan uca bir web uygulamasıdır.
 
-Projenin temel amacı, kullanıcıdan alınan 4C (Carat, Cut, Color, Clarity) ve boyut (X, Y, Z, Depth, Table) bilgilerini değerlendirerek mümkün olduğunca doğru bir fiyat tahmini sunmaktır. Geliştirdiğim model, test verileri üzerinde **%98.0 R² skoru** elde etmiştir.
+Projenin temel amacı, kullanıcıdan alınan 4C (**Carat, Cut, Color, Clarity**) ve boyut (**X, Y, Z, Depth, Table**) bilgilerini değerlendirerek mümkün olduğunca doğru bir fiyat tahmini sunmaktır.
 
-Projeyi geliştirirken özellikle **veri bilimi, makine öğrenmesi ve backend** tarafına odaklandım. Veri setinin hazırlanması, temizlenmesi, Keşifçi Veri Analizi (EDA), veri ön işleme (`StandardScaler`, `One-Hot Encoding`), model seçimi, hiperparametre optimizasyonu (Grid/Randomized Search) ve test süreçlerini sıfırdan geliştirdim. Eğitilen en başarılı modeli **FastAPI** kullanarak bir API haline getirip frontend ile entegre ettim.
+Geliştirilen model, test verileri üzerinde **%98.0 R² skoru** elde etmiştir.
 
-**Frontend tarafında ise HTML, CSS ve JavaScript kullanılarak oluşturulan modern, lüks ve Dark Mode odaklı arayüz tasarımı tamamen Cursor AI tarafından geliştirilmiştir.** Backend ve makine öğrenmesi tarafının bu arayüze entegrasyonu ise bizzat tarafımca kurgulanmıştır.
+Projede veri hazırlama, veri temizleme, Keşifçi Veri Analizi (EDA), veri ön işleme, model seçimi, hiperparametre optimizasyonu ve model değerlendirme süreçleri gerçekleştirilmiştir.
 
-Bu projede temel hedefim sadece başarılı bir makine öğrenmesi modeli oluşturmak değil; veri hazırlama aşamasından modellemeye, API geliştirmeden kullanıcı arayüzüne kadar tüm süreci bir bütün olarak ele alıp, modeli **gerçek hayatta kullanılabilecek interaktif bir web uygulamasına** dönüştürmekti.
+Eğitilen en başarılı model, **LightGBM Pipeline** olarak `diamond_regression.pkl` dosyasına kaydedilmiş ve **FastAPI** kullanılarak web uygulamasına entegre edilmiştir.
+
+Frontend tarafında HTML, CSS ve JavaScript kullanılarak oluşturulan modern, lüks ve Dark Mode odaklı arayüz **Cursor AI desteğiyle** geliştirilmiştir. Backend ve makine öğrenmesi modelinin frontend'e entegrasyonu tarafımca gerçekleştirilmiştir.
 
 ---
 
-## 🛠️ Mimari ve Kullanılan Teknolojiler
+## 🛠️ Kullanılan Teknolojiler
 
 ### ⚙️ Backend & API
 
-- **FastAPI:** Modeli frontend'e bağlamak ve yüksek performanslı API altyapısını oluşturmak için kullanıldı.
-- **Uvicorn:** FastAPI uygulamasını asenkron olarak çalıştırmak için kullanıldı.
-- **Jinja2:** Dinamik HTML template'lerinin render edilmesi için kullanıldı.
-- **Python-Multipart:** Form verilerinin backend tarafında işlenmesi için kullanıldı.
+- **FastAPI** — Makine öğrenmesi modelini web uygulamasına bağlamak için
+- **Uvicorn** — FastAPI uygulamasını çalıştırmak için
+- **Jinja2** — HTML template'lerini render etmek için
+- **Python-Multipart** — Form verilerinin işlenmesi için
 
 ### 🧠 Veri Bilimi & Makine Öğrenmesi
 
-- **Scikit-Learn:** Veri ön işleme (`StandardScaler`, `OneHotEncoder`), `Pipeline` kurgusu ve model değerlendirme süreçlerinde kullanıldı.
-- **LightGBM:** Projenin ana tahmin modeli (Tuned LGBMRegressor) olarak kullanıldı.
-- **Pandas & NumPy:** Veri temizleme, düzenleme ve manipülasyon süreçlerinde kullanıldı.
+- **Scikit-Learn** — `StandardScaler`, `OneHotEncoder`, `Pipeline` ve model değerlendirme
+- **LightGBM** — Pırlanta fiyat tahmin modeli
+- **Pandas** — Veri işleme ve analiz
+- **NumPy** — Sayısal işlemler
 
 ### 🎨 Frontend
 
-- **Cursor AI:** Modern arayüz tasarımı ve frontend (HTML/CSS/JS) kodlamalarının tamamında kullanıldı.
+- **HTML**
+- **CSS**
+- **JavaScript**
+- **Cursor AI** — Frontend geliştirme ve arayüz tasarımı
 
 ---
 
 ## 📊 Makine Öğrenmesi ve Model Performansı
 
-Projede veri setine en uygun modeli bulabilmek için farklı makine öğrenmesi algoritmaları test edildi ve sonuçlar **R² (R-Squared)** metriği üzerinden karşılaştırıldı. 
-
-### 🏆 Model Karşılaştırması
+Projede farklı regresyon algoritmaları test edilmiş ve modeller **R² (R-Squared)** metriği üzerinden karşılaştırılmıştır.
 
 | Model | R² Skoru |
 |---|---:|
@@ -60,59 +62,180 @@ Projede veri setine en uygun modeli bulabilmek için farklı makine öğrenmesi 
 
 <img width="1112" height="536" alt="DiamondPriceRegressionModel" src="https://github.com/user-attachments/assets/dd3f7722-8f5f-451d-b85b-48c7fc5f723c" />
 
-
-Test sonuçlarına ve hiperparametre optimizasyonuna (Grid/Randomized Search) göre **LightGBM**, diğer modeller arasında en başarılı sonucu verdi. Bu nedenle sistemin canlı (live inference) tahmin modeli olarak `LightGBM Tuning` tercih edildi.
+Test sonuçlarına göre **LightGBM**, test edilen modeller arasında en başarılı sonucu vermiştir. Bu nedenle canlı tahmin sistemi için **Tuned LightGBM Pipeline** kullanılmıştır.
 
 ---
 
 ## 🔍 Özellik Önemi (Feature Importance)
 
-Modelin pırlanta fiyatını tahmin ederken hangi özelliklerden daha fazla etkilendiğini görmek için *feature importance* analizi yapıldı.
+Modelin pırlanta fiyatını tahmin ederken hangi özelliklerden daha fazla etkilendiğini görmek amacıyla *feature importance* analizi yapılmıştır.
 
-Öne çıkan özellikler ve model üzerindeki ağırlıkları:
+Öne çıkan özellikler:
 
 1. **Karat (`num_col__carat`)** — `2701`
 2. **Derinlik Oranı (`num_col__depth`)** — `2579`
-3. **Z Boyutu (Derinlik mm) (`num_col__z`)** — `2539`
-4. **Y Boyutu (Genişlik mm) (`num_col__y`)** — `2443`
-5. **X Boyutu (Uzunluk mm) (`num_col__x`)** — `2205`
+3. **Z Boyutu (`num_col__z`)** — `2539`
+4. **Y Boyutu (`num_col__y`)** — `2443`
+5. **X Boyutu (`num_col__x`)** — `2205`
 6. **Tablo Oranı (`num_col__table`)** — `1319`
 7. **Renk: J (`cat_col__color_J`)** — `650`
 8. **Berraklık: SI2 (`cat_col__clarity_SI2`)** — `637`
 
 <img width="312" height="812" alt="FeatureImpotanceDiamondPrice" src="https://github.com/user-attachments/assets/5e2a5733-3e21-4b59-bb14-7f527805341c" />
 
-Analiz sonucunda, pırlantanın **karat ağırlığı** ve fiziksel geometrisini belirleyen **boyutsal ölçülerin (depth, x, y, z)** fiyat üzerinde en belirleyici etmenler olduğu kanıtlanmıştır.
+Analiz sonucunda pırlantanın **karat ağırlığı** ve fiziksel geometrisini belirleyen **depth, x, y ve z** gibi boyutsal özelliklerin model açısından en önemli değişkenler olduğu görülmüştür.
 
 ---
 
 ## 💻 Uygulama Özellikleri
 
-- **Etkileşimli Arayüz:** Carat, Cut, Color, Clarity gibi kalite standartları ile Table, Depth, X, Y, Z gibi fiziksel ölçüler kolayca girilebilir.
-- **Anlık Fiyat Tahmini (Live Inference):** Form gönderildiğinde pırlanta bilgileri backend'e gönderilir, `Pipeline` üzerinden işlenir ve tahmini fiyat saniyeler içinde kullanıcıya gösterilir.
-- **Karanlık Tema (Dark Mode):** Pırlanta ışıltısını öne çıkaran, lüks ve şık bir stüdyo/atelier tasarımı kurgulanmıştır.
+- 💎 Pırlanta fiyat tahmini
+- 📊 4C özelliklerinin kullanımı: Carat, Cut, Color, Clarity
+- 📐 Geometrik özelliklerin kullanımı: X, Y, Z, Depth, Table
+- ⚡ Anlık fiyat tahmini
+- 🌐 FastAPI backend entegrasyonu
+- 🤖 LightGBM tabanlı makine öğrenmesi modeli
+- 🎨 Modern ve Dark Mode odaklı kullanıcı arayüzü
 
 ---
 
 ## 🖥️ Uygulama Akışı
 
-Kullanıcı pırlanta bilgilerini girdikten sonra veriler **FastAPI** backend'ine iletilir. Backend tarafında eğitim sırasında kurulan (StandardScaler + OneHotEncoder) `Pipeline` çalışır ve veriler **LightGBM** modeline aktarılır. Modelin ürettiği sonuç formatlanarak arayüze yansıtılır.
-
-```text
+~~~text
 Kullanıcı
    ↓
 Pırlanta 4C & Ölçüleri
    ↓
 Frontend
    ↓
-FastAPI (Endpoint: /predict)
+FastAPI
    ↓
-Data Preprocessing (Pipeline)
+main.py
    ↓
-LightGBM Model
+diamond_regression.pkl
+   ↓
+Preprocessing Pipeline
+   ↓
+LightGBM
    ↓
 Fiyat Tahmini ($)
    ↓
 Frontend
    ↓
 Kullanıcı
+~~~
+
+---
+
+## 📂 Proje Yapısı
+
+~~~text
+Diamond_Price_Predictor/
+│
+├── templates/
+│   └── index.html
+│       # Frontend HTML arayüzü
+│
+├── main.py
+│   # FastAPI backend rotaları ve model entegrasyonu
+│
+├── diamond_regression.pkl
+│   # Eğitilmiş LightGBM Pipeline modeli
+│
+├── requirements.txt
+│   # Proje bağımlılıkları
+│
+├── .gitignore
+│   # Git tarafından yok sayılacak dosyalar
+│
+└── README.md
+    # Proje dokümantasyonu
+~~~
+
+---
+
+## 🚀 Kurulum ve Çalıştırma
+
+### Gereksinimler
+
+- Python 3.9+
+- Git
+- pip
+
+### 1. Repoyu Klonlayın
+
+~~~bash
+git clone https://github.com/USERNAME/Diamond_Price_Predictor.git
+cd Diamond_Price_Predictor
+~~~
+
+> `USERNAME` kısmını kendi GitHub kullanıcı adınızla değiştirin.
+
+### 2. Sanal Ortam Oluşturun
+
+#### Windows
+
+~~~bash
+python -m venv venv
+venv\Scripts\activate
+~~~
+
+#### macOS / Linux
+
+~~~bash
+python3 -m venv venv
+source venv/bin/activate
+~~~
+
+### 3. Bağımlılıkları Yükleyin
+
+Projede kullanılan tüm Python bağımlılıkları `requirements.txt` dosyasında bulunmaktadır.
+
+~~~bash
+pip install -r requirements.txt
+~~~
+
+### 4. Uygulamayı Başlatın
+
+FastAPI uygulamasını Uvicorn ile başlatın:
+
+~~~bash
+uvicorn main:app --reload
+~~~
+
+### 5. Web Uygulamasını Açın
+
+Uygulama başladıktan sonra tarayıcınızdan:
+
+~~~text
+http://127.0.0.1:8000
+~~~
+
+adresine giderek uygulamayı kullanabilirsiniz.
+
+FastAPI'nin otomatik Swagger API dokümantasyonuna:
+
+~~~text
+http://127.0.0.1:8000/docs
+~~~
+
+adresinden ulaşabilirsiniz.
+
+> **Not:** `diamond_regression.pkl` eğitilmiş **LightGBM Pipeline** modelini içerdiği için modeli yeniden eğitmenize gerek yoktur. `requirements.txt` içerisindeki bağımlılıkları kurduktan sonra uygulamayı doğrudan çalıştırabilirsiniz.
+
+---
+
+
+---
+
+## 👨‍💻 Proje Amacı
+
+Bu proje, bir makine öğrenmesi modelini yalnızca notebook içerisinde eğitmek yerine **uçtan uca çalışan bir makine öğrenmesi uygulamasına dönüştürmek** amacıyla geliştirilmiştir.
+
+Proje içerisinde:
+
+**Veri Analizi → Veri Ön İşleme → Modelleme → Hiperparametre Optimizasyonu → Model Değerlendirme → Model Kaydetme → FastAPI → Frontend → Live Inference**
+
+sürecinin tamamı tek bir proje içerisinde bir araya getirilmiştir.
+
+---
